@@ -36,11 +36,69 @@ resources:
 - 18,324,219
 - 29,430,127
 
+``` sql
+SELECT SUM(row_count) AS total_rows
+FROM (
+  SELECT COUNT(*) AS row_count FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_01`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_02`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_03`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_04`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_05`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_06`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_07`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_08`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_09`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_10`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_11`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.yellow_tripdata_2020_12`
+) AS all_counts;
+```
+
 4. How many rows are there for the Green Taxi data for all CSV files in the year 2020?
 - 5,327,301
 - 936,199
 - 1,734,051 (answer)
 - 1,342,034
+
+``` sql
+SELECT SUM(row_count) AS total_rows
+FROM (
+  SELECT COUNT(*) AS row_count FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_01`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_02`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_03`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_04`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_05`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_06`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_07`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_08`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_09`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_10`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_11`
+  UNION ALL
+  SELECT COUNT(*) FROM `kestra-project-449307.zoomcamp.green_tripdata_2020_12`
+) AS all_counts;
+```
 
 5. How many rows are there for the Yellow Taxi data for the March 2021 CSV file?
 - 1,428,092
