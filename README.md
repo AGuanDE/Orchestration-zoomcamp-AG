@@ -1,16 +1,408 @@
 # Orchestration-zoomcamp-AG
-Repo for week 2 module on kestra and orchestration -test
+Repo for week 2 module on kestra and orchestration
 
-## Goal: update existing kestra flows with data for 2021 yellow and green taxis.
+### Goal: update existing kestra flows with data for 2021 yellow and green taxis.
 
 Steps:
 - set up flows on kestra locally and validate flows
 - push to dev branch on github
 - PR / merge to main
 - sync flows and files to kestra on prod (Google cloud)
-  - GC-kestra uses GSC = kestra-storage-agde
 
-Challenge: find out how to loop over the combination of Year-Month and taxi-type using ForEach task which triggers the flow for each combination using a Subflow task.
+### Challenge: find out how to loop over the combination of Year-Month and taxi-type using ForEach task which triggers the flow for each combination using a Subflow task.
+
+**ForEach tasks**
+- Purpose: useful for scenarios where multiple similar tasks need to be run for different inputs.
+
+``` yaml
+type: "io.kestra.plugin.core.flow.ForEach"
+```
+
+I used a python script to generate every combination of taxi, year and month, then copied it to the values property of the forEach task. For future, learn how to create this combination more efficiently (use a json file or us a script to make it dynamic).
+
+``` yaml
+id: taxi-loop
+namespace: kestra-forloop-test
+description: "Loop over each taxi-type, year, and month combination and trigger the subflow"
+
+tasks:
+  - id: for-each
+    type: io.kestra.plugin.core.flow.ForEach
+    values:
+      [
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "01"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "02"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "03"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "04"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "05"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "06"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "07"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "08"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "09"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "10"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "11"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2019",
+            "month": "12"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "01"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "02"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "03"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "04"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "05"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "06"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "07"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "08"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "09"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "10"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "11"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2020",
+            "month": "12"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "01"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "02"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "03"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "04"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "05"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "06"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "07"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "08"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "09"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "10"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "11"
+        },
+        {
+            "taxi": "yellow",
+            "year": "2021",
+            "month": "12"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "01"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "02"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "03"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "04"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "05"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "06"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "07"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "08"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "09"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "10"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "11"
+        },
+        {
+            "taxi": "green",
+            "year": "2019",
+            "month": "12"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "01"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "02"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "03"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "04"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "05"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "06"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "07"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "08"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "09"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "10"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "11"
+        },
+        {
+            "taxi": "green",
+            "year": "2020",
+            "month": "12"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "01"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "02"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "03"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "04"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "05"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "06"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "07"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "08"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "09"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "10"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "11"
+        },
+        {
+            "taxi": "green",
+            "year": "2021",
+            "month": "12"
+        }
+      ]
+    tasks: 
+      - id: send_to_postgres_taxi
+        type: io.kestra.plugin.core.flow.Subflow
+        flowId: taxi-postgres
+        namespace: kestra-forloop-test
+        inputs: 
+          my_input: "{{ taskrun.value }}"
+
+```
+
+
+
 
 resources: 
 - Pull data from: https://github.com/DataTalksClub/nyc-tlc-data/releases/tag/green/download
