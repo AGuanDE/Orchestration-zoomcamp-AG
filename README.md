@@ -26,11 +26,14 @@ namespace: kestra-forloop-test
 description: "Loop over each taxi-type, year, and month combination and trigger the subflow"
 
 tasks:
-  - id: for-each
-    type: io.kestra.plugin.core.flow.ForEach
-    values:
-      .....
-    tasks: 
+  - id: python_script_create_combos
+  ....
+
+  ### generate all combinations of taxi, year, month, then feed them as inputs into the subflow.
+
+
+
+  tasks: 
       - id: send_to_postgres_taxi
         type: io.kestra.plugin.core.flow.Subflow
         flowId: taxi-postgres
